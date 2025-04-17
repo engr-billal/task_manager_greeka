@@ -20,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate": "ts-node src/migrations/migrate.ts",
     "migrate:prod": "node dist/migrations/migrate.js",
-    "postinstall": "npm run build"
+    "postinstall": "bash build-heroku.sh",
+    "heroku-postbuild": "chmod +x build-heroku.sh && ./build-heroku.sh"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.20",
