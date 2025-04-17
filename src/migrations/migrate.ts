@@ -1,25 +1,19 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
-import { up as createTasksTable } from './0000_create_tasks_table';
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
+import { db, pool } from '../db';
 
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'task_manager',
-  password: 'Muhammad3913@',
-  port: 5432,
-});
-
-const db = drizzle(pool);
-
+// Run migrations
 async function runMigrations() {
+  console.log('Running migrations...');
+  console.log('Database URL:', process.env.DATABASE_URL || 'Not set');
+
   try {
-    console.log('Running migrations...');
-    await createTasksTable(db);
+    await migrate(db, { migrationsFolder: 'drizzle' });
     console.log('Migrations completed successfully');
   } catch (error) {
     console.error('Migration failed:', error);
+    process.exit(1);
   } finally {
+    // Close the pool after migrations
     await pool.end();
   }
 }

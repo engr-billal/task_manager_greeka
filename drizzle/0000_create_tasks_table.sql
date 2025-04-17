@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS tasks (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  due_date TIMESTAMP,
+  status TEXT,
+  priority TEXT,
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  is_active BOOLEAN DEFAULT TRUE
+); 
