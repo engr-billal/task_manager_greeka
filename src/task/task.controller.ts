@@ -70,6 +70,18 @@ export class TaskController {
   @ApiOperation({ summary: 'Get all tasks with pagination and filters' })
   @ApiQuery({ name: 'page', required: false, description: 'Page number' })
   @ApiQuery({ name: 'limit', required: false, description: 'Items per page' })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Filter by status',
+    enum: ['Pending', 'Done', 'InProgress', 'Paused'],
+  })
+  @ApiQuery({
+    name: 'priority',
+    required: false,
+    description: 'Filter by priority',
+    enum: ['Red', 'Yellow', 'Blue'],
+  })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   async getTasks(
     @Query() filter: any,
