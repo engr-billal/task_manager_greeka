@@ -6,14 +6,19 @@ import {
   boolean,
   pgEnum,
 } from 'drizzle-orm/pg-core';
+import { TaskStatus, TaskPriority } from './task.enums';
 
 const statusEnum = pgEnum('status', [
-  'Pending',
-  'Done',
-  'InProgress',
-  'Paused',
+  TaskStatus.Pending,
+  TaskStatus.Done,
+  TaskStatus.InProgress,
+  TaskStatus.Paused,
 ]);
-const priorityEnum = pgEnum('priority', ['Red', 'Yellow', 'Blue']);
+const priorityEnum = pgEnum('priority', [
+  TaskPriority.Red,
+  TaskPriority.Yellow,
+  TaskPriority.Blue,
+]);
 
 export const tasks = pgTable('tasks', {
   id: serial('id').primaryKey(),

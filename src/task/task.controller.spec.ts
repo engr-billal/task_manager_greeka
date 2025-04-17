@@ -2,13 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TaskController } from './task.controller';
 import { TaskService } from './task.service';
 import { CreateTaskDto, UpdateTaskDto } from './dto';
+import { TaskStatus, TaskPriority } from './task.enums';
 
 type Task = {
   id: number;
   name: string;
   dueDate: string;
-  status: 'Pending' | 'Done' | 'InProgress' | 'Paused';
-  priority: 'Red' | 'Yellow' | 'Blue';
+  status: TaskStatus;
+  priority: TaskPriority;
   dateCreated: Date;
   isActive: boolean;
 };
@@ -35,8 +36,8 @@ describe('TaskController', () => {
     it('should create a new task', async () => {
       const createTaskDto: CreateTaskDto = {
         name: 'New Task',
-        status: 'Pending',
-        priority: 'Red',
+        status: TaskStatus.Pending,
+        priority: TaskPriority.Red,
         dueDate: new Date(),
       };
 
@@ -61,8 +62,8 @@ describe('TaskController', () => {
       const taskId = 1;
       const updateTaskDto: UpdateTaskDto = {
         name: 'Updated Task',
-        status: 'InProgress',
-        priority: 'Yellow',
+        status: TaskStatus.InProgress,
+        priority: TaskPriority.Yellow,
         dueDate: new Date(),
       };
 
@@ -86,7 +87,7 @@ describe('TaskController', () => {
     it('should handle partial updates', async () => {
       const taskId = 1;
       const updateTaskDto: UpdateTaskDto = {
-        status: 'Done',
+        status: TaskStatus.Done,
       };
 
       const mockUpdatedTask: Task = {
@@ -94,7 +95,7 @@ describe('TaskController', () => {
         name: 'Existing Task',
         dueDate: new Date().toISOString(),
         status: updateTaskDto.status,
-        priority: 'Red',
+        priority: TaskPriority.Red,
         dateCreated: new Date(),
         isActive: true,
       };
@@ -124,8 +125,8 @@ describe('TaskController', () => {
         id: taskId,
         name: 'Test Task',
         dueDate: new Date().toISOString(),
-        status: 'Pending',
-        priority: 'Red',
+        status: TaskStatus.Pending,
+        priority: TaskPriority.Red,
         dateCreated: new Date(),
         isActive: true,
       };
@@ -145,8 +146,8 @@ describe('TaskController', () => {
           id: 1,
           name: 'Task 1',
           dueDate: new Date().toISOString(),
-          status: 'Pending',
-          priority: 'Red',
+          status: TaskStatus.Pending,
+          priority: TaskPriority.Red,
           dateCreated: new Date(),
           isActive: true,
         },
@@ -154,14 +155,14 @@ describe('TaskController', () => {
           id: 2,
           name: 'Task 2',
           dueDate: new Date().toISOString(),
-          status: 'Done',
-          priority: 'Yellow',
+          status: TaskStatus.Done,
+          priority: TaskPriority.Yellow,
           dateCreated: new Date(),
           isActive: true,
         },
       ];
 
-      const filter = { status: 'Pending' };
+      const filter = { status: TaskStatus.Pending };
       const page = 1;
       const limit = 10;
       const total = 2;

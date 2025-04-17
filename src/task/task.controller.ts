@@ -17,6 +17,7 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
+import { TaskPriority, TaskStatus } from './task.enums';
 
 @ApiTags('tasks')
 @Controller('tasks')
@@ -74,13 +75,13 @@ export class TaskController {
     name: 'status',
     required: false,
     description: 'Filter by status',
-    enum: ['Pending', 'Done', 'InProgress', 'Paused'],
+    enum: TaskStatus,
   })
   @ApiQuery({
     name: 'priority',
     required: false,
     description: 'Filter by priority',
-    enum: ['Red', 'Yellow', 'Blue'],
+    enum: TaskPriority,
   })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   async getTasks(
